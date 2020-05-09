@@ -2,13 +2,13 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { ActionTypes } from './types';
 // Define an interface that describe the structure of a todo that we get back from an Api.
-interface ITodo {
+export interface ITodo {
 	id: number;
 	title: string;
 	completed: boolean;
 }
 // This interface is going to describe the action object ({type: ... , payload: ...})
-interface IFetchTodosAction {
+export interface IFetchTodosAction {
 	type: ActionTypes.fetchTodos;
 	payload: ITodo[];
 }
