@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ITodo, fetchTodos } from '../store/actions';
+import { ITodo, fetchTodos, deleteTodo } from '../store/actions';
 import { IStoreState } from '../store/reducers';
 
 interface IAppProps {
 	todos: ITodo[];
-	fetchTodos(): any;
+	// Tell react-redux that `fetchTodos` is only a function to avoid having Type annotation error and letting connect function works without any error.
+	fetchTodos: Function;
+	// Go and find types of deleteTodo and put it here to save time.
+	deleteTodo: typeof deleteTodo;
 }
 
 class _App extends React.Component<IAppProps> {
@@ -13,9 +16,23 @@ class _App extends React.Component<IAppProps> {
 		this.props.fetchTodos();
 	};
 
+	onDeleteTodo = (id: number): void => {
+		this.props.deleteTodo(id);
+	};
+
 	renderList(): JSX.Element[] {
 		return this.props.todos.map(({ title, id }: ITodo) => {
-			return <div key={id}>{title}</div>;
+			return (
+				<div
+					key={id}
+					onClick={() => {
+						this.onDeleteTodo(id);
+					}}
+				>
+					{' '}
+					{title}
+				</div>
+			);
 		});
 	}
 
@@ -35,4 +52,4 @@ const mapStateToProps = ({ todos }: IStoreState): { todos: ITodo[] } => {
 	return { todos };
 };
 
-export const App = connect(mapStateToProps, { fetchTodos })(_App);
+export const App = connect(mapStateToProps, { fetchTodos, deleteTodo })(_App);
