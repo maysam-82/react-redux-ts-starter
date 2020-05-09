@@ -6,7 +6,7 @@
 
 Components types in React are generic types.
 
-```typescript
+```tsx
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -29,7 +29,7 @@ The first argument is structure of props we expect to pass. This pattern will be
 
 If we are going to use `constructor` inside a class, we need to pass an interface as a second argument of React `Component`
 
-```typescript
+```tsx
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -72,7 +72,7 @@ ReactDOM.render(<App color="red" />, document.getElementById('root'));
 
 If we use `state` property directly to the class (without constructor), we overwrite the state property defined inside of component and we do not need to use an interface and pass it as a second argument of `Component` class.
 
-```typescript
+```tsx
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -90,3 +90,19 @@ state = {
 Do not mix both of these methods since it will cause bunch of issues in the codes.
 
 ## Functional Components in TS:
+
+React Functional Components receive props as an argument with type specified with an interface and return `JSX.Element`.
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+interface IAppProps {
+	color: string;
+}
+
+const App = (props: IAppProps):JSX.Element {
+return <div>{props.color}</div>
+}
+ReactDOM.render(<App color="red" />, document.getElementById('root'));
+```
