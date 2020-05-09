@@ -14,7 +14,7 @@ export interface IFetchTodosAction {
 }
 
 const rootUrl = 'http://jsonplaceholder.typicode.com/todos';
-export const fetch = () => {
+export const fetchTodos = () => {
 	return async (dispatch: Dispatch) => {
 		// get function is a generic type. by adding <ToDo[]> as a type, we tell typescript that inside response.data we will have an array of objects that satisfy the IToDo interfance.
 		const response = await axios.get<ITodo[]>(rootUrl);
