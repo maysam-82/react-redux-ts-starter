@@ -9,12 +9,24 @@ interface IAppProps {
 }
 
 class _App extends React.Component<IAppProps> {
-	componentDidMount() {
+	onFetchClickedHandler = (): void => {
 		this.props.fetchTodos();
+	};
+
+	renderList(): JSX.Element[] {
+		return this.props.todos.map(({ title, id }: ITodo) => {
+			return <div key={id}>{title}</div>;
+		});
 	}
+
 	render() {
 		console.log(this.props.todos);
-		return <div>Hi There</div>;
+		return (
+			<div>
+				<button onClick={this.onFetchClickedHandler}>Fetch Todos</button>
+				{this.renderList()}
+			</div>
+		);
 	}
 }
 
