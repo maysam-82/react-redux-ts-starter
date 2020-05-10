@@ -11,8 +11,26 @@ interface IAppProps {
 	deleteTodo: typeof deleteTodo;
 }
 
-class _App extends React.Component<IAppProps> {
+interface IAppState {
+	fetching: boolean;
+}
+
+class _App extends React.Component<IAppProps, IAppState> {
+	constructor(props: IAppProps) {
+		super(props);
+
+		this.state = {
+			fetching: false,
+		};
+	}
+	componentDidUpdate(prevProps: IAppProps) {
+		if (!prevProps.todos.length && this.props.todos.length) {
+			this.setState({ fetching: false });
+		}
+	}
+
 	onFetchClickedHandler = (): void => {
+		this.setState({ fetching: true });
 		this.props.fetchTodos();
 	};
 
@@ -37,11 +55,11 @@ class _App extends React.Component<IAppProps> {
 	}
 
 	render() {
-		console.log(this.props.todos);
+		const { fetching } = this.state;
 		return (
 			<div>
 				<button onClick={this.onFetchClickedHandler}>Fetch Todos</button>
-				{this.renderList()}
+				{!fetching ? this.renderList() : <div>Loading...</div>}
 			</div>
 		);
 	}
