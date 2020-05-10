@@ -93,7 +93,7 @@ Do not mix both of these methods since it will cause bunch of issues in the code
 
 React Functional Components receive props as an argument with type specified with an interface and return `JSX.Element`.
 
-```
+```tsx
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -101,8 +101,8 @@ interface IAppProps {
 	color: string;
 }
 
-const App = (props: IAppProps):JSX.Element {
-return <div>{props.color}</div>
-}
+const App = (props: IAppProps): JSX.Element => {
+	return <div>{props.color}</div>;
+};
 ReactDOM.render(<App color="red" />, document.getElementById('root'));
 ```
